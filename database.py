@@ -10,3 +10,8 @@ class ComicsDB:
 
     def get(self, id):
         return self.db.execute("select * from comics where id = ?", (id,)).fetchone()
+
+    def get_all(self):
+        cur = self.db.cursor()
+        cur.execute("select * from comics")
+        return cur.fetchall()
