@@ -1,0 +1,43 @@
+
+@import url(http://fonts.googleapis.com/css?family=Arvo:regular|Josefin+Sans:light,regular&subset=latin);
+
+header {
+    text-align: left;
+    border-bottom: 1px solid #DDDDDD;
+    padding-bottom:30px;
+    }
+
+header #title {
+    font-size:52pt;
+    }
+
+header #title-icell {
+    font-family: Arvo, serif;
+    }
+
+header #title-college {
+    font-size: 32pt;
+    font-family: "Josefin Sans", sans-serif;
+    font-weight: 300;
+    padding-left: 20px;
+    border-left: 1px black solid;
+    }
+
+header #tagline {
+    font-size: 14pt;
+    color: DarkGrey;
+    letter-spacing: 5px;
+    }
+
+#main {
+    text-align: center;
+}
+#title-choices span {
+    margin:10px;
+}
+
+#alt-choices span {
+    margin:20px;
+    display:block;
+    text-align: left;
+}
