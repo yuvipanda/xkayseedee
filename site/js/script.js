@@ -1,5 +1,16 @@
 var xkcd = null;
 
+var showImage = function(url) {
+    var img = new Image();
+    $("#status").show();
+    $(img).load(function() {
+            $("#status").hide();
+            $("#qimg").empty().append(this);
+            $("#game-area").fadeIn();
+            })
+    .attr("src", url);
+}
+
 var getComic = function() {
     var selID = Math.floor(1 + (Math.random() * xkcd.count));
     for(var i=0; i < 5; i++) {
@@ -15,7 +26,8 @@ var getComic = function() {
     }
     var correctAltChoice = Math.floor(1 + (Math.random() * 5));
     $("#alt-choice-" + correctAltChoice).html(xkcd.comics[selID].alt);
-    $("#qimg").attr("src", xkcd.comics[selID].image_src);
+    $("#game-area").fadeOut("fast");
+    showImage(xkcd.comics[selID].image_src);
 }
 
 var init = function() {
