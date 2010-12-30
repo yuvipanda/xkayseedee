@@ -16,8 +16,9 @@ def parse_page(id):
     image_url = page.cssselect("div.s > img")[0].attrib['src']
     print page.cssselect("div.s img")[1].attrib
     alt = page.cssselect("div.s img")[1].attrib['title']
+    transcript = page.cssselect("#transcript")[0].text
 
-    return (id, title, alt, image_url)
+    return (id, title, alt, transcript, image_url)
 
 if __name__ == "__main__":
     if len(sys.argv) < 3:
