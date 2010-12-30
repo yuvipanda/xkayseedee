@@ -14,7 +14,7 @@ def parse_page(id):
 
     title = page.cssselect("h1")[0].text
     image_url = page.cssselect("div.s > img")[0].attrib['src']
-    print page.cssselect("div.s img")[1].attrib
+    
     alt = page.cssselect("div.s img")[1].attrib['title']
     transcript = page.cssselect("#transcript")[0].text
 
@@ -29,10 +29,9 @@ if __name__ == "__main__":
 
     id = int(sys.argv[2])
     while True:
-        if id == 404:
-            continue #http://xkcd.com/404 is an obvious joke.
-        if not db.get(id):
-            comic_data = parse_page(id)
-            db.put(*comic_data)
-            print "Done %d" % id
+        if id != 404: #http://xkcd.com/404 is an obvious joke.
+            if not db.get(id):
+                comic_data = parse_page(id)
+                db.put(*comic_data)
+                print "Done %d" % id
         id += 1 
