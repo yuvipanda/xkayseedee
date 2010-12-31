@@ -38,7 +38,7 @@ var extractExerpt = function(transcript) {
     }
     else if (selectedLine[0] == "{") {
         type = "alt";
-        selectedLine = selectedLine.replace("{{", "").replace("}}", "");
+        selectedLine = selectedLine.replace("{{", "").replace("}}", "").replace("alt: ", "").replace("rollover text: ", "").replace("Title text: ", "").replace("title text: ", "");
     }
     if (selectedLine.length > 15) {
         return {"text": selectedLine,
