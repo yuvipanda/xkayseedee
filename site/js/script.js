@@ -1,5 +1,6 @@
 var xkcd = null;
 var correctTitleChoice;
+var curScore = 0.0;
 
 var showImage = function(url) {
     var img = new Image();
@@ -12,7 +13,7 @@ var showImage = function(url) {
     .attr("src", url);
 }
 
-var getComic = function() {
+var reloadQuestion = function() {
     var selID = Math.floor(1 + (Math.random() * xkcd.count));
     for(var i=0; i < 5; i++) {
         var val = Math.floor(Math.random() * xkcd.count);
@@ -24,7 +25,7 @@ var getComic = function() {
     var exerpt = extractExerpt(xkcd.comics[selID].transcript);
     $("#exerpt-text").html(exerpt.text);
     $("#exerpt-type").html(exerpt.type);
-    $("#status").fadeOut("fast");
+    $("#result").fadeOut("fast");
 }
 
 var extractExerpt = function(transcript) {
@@ -38,7 +39,8 @@ var extractExerpt = function(transcript) {
     }
     else if (selectedLine[0] == "{") {
         type = "alt";
-        selectedLine = selectedLine.replace("{{", "").replace("}}", "").replace("alt: ", "").replace("rollover text: ", "").replace("Title text: ", "").replace("title text: ", "");
+        // WHAT THE FUCK AM I THINKING?
+        selectedLine = selectedLine.replace("{{", "").replace("}}", "").replace("alt: ", "").replace("rollover text: ", "").replace("Title text: ", "").replace("title text: ", "").replace("title-text: ", "").replace("alt text: ", "").replace("alt-text: ", "");
     }
     if (selectedLine.length > 15) {
         return {"text": selectedLine,
@@ -49,22 +51,31 @@ var extractExerpt = function(transcript) {
     }
 }
 
+var addScore = function(value) {
+    curScore += value;
+    $("#score").html(curScore);
+}
+
 var checkAnswer = function() {
     if ($(this).attr("id") == "title-choice-" + correctTitleChoice) {
-        $("#status").html("Correct Answer!");
+        $("#result").html("Correct Answer!").attr("class", "correct");
+        $("#result").fadeIn("fast");
+        addScore(1);
+        reloadQuestion(xkcd);
     }
     else {
-        $("#status").html("Wrong Answer!");
+        $("#result").html("Wrong Answer!").attr("class", "wrong");
+        addScore(-0.5);
+        $("#result").fadeIn("fast");
     }
-    $("#status").fadeIn("fast");
 }
 var init = function() {
     $.getJSON("xkcd.json", 
             function(data) { 
             xkcd = data;
-            getComic(data);
-            $("#reload").click(getComic);
-            $("#title-choices span").click(checkAnswer);
+            reloadQuestion(data);
+            $("#reload").click(reloadQuestion);
+            $("#title-choices a").click(checkAnswer);
             });
  }
 
