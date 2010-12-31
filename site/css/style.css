@@ -32,10 +32,22 @@ header #tagline {
 #main {
     text-align: center;
 }
-#title-choices span {
+
+#title-choices {
+    margin-top: 30px;
+    font-size: 140%;
+}
+
+#title-choices a {
     margin:10px;
+    text-decoration: None;
+}
+
+#exerpt {
+    font-size: 150%;
 }
 
 #exerpt-type {
     text-transform: uppercase;
+    color: DarkGrey;
 }
