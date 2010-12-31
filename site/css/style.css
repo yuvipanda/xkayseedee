@@ -36,8 +36,6 @@ header #tagline {
     margin:10px;
 }
 
-#alt-choices span {
-    margin:20px;
-    display:block;
-    text-align: left;
+#exerpt-type {
+    text-transform: uppercase;
 }

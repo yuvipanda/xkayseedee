@@ -20,7 +20,10 @@ var getComic = function() {
     }
     correctTitleChoice = Math.floor(1 + (Math.random() * 5));
     $("#title-choice-" + correctTitleChoice).html(xkcd.comics[selID].title);
-    $("#exerpt").html(extractExerpt(xkcd.comics[selID].transcript));
+
+    var exerpt = extractExerpt(xkcd.comics[selID].transcript);
+    $("#exerpt-text").html(exerpt.text);
+    $("#exerpt-type").html(exerpt.type);
     $("#status").fadeOut("fast");
 }
 
@@ -28,8 +31,18 @@ var extractExerpt = function(transcript) {
     var lines = transcript.split("\n");
     var selID = Math.floor(Math.random() * lines.length);
     var selectedLine = lines[selID];
+    var type = "dialogue";
+    if (selectedLine[0] == "[") {
+        type = "scene";
+        selectedLine = selectedLine.replace("[[", "").replace("]]", "");
+    }
+    else if (selectedLine[0] == "{") {
+        type = "alt";
+        selectedLine = selectedLine.replace("{{", "").replace("}}", "");
+    }
     if (selectedLine.length > 15) {
-        return lines[selID];
+        return {"text": selectedLine,
+            "type": type};
     }
     else {
         return extractExerpt(transcript);
