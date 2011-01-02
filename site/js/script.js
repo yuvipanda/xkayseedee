@@ -28,6 +28,10 @@ var reloadQuestion = function() {
     $("#result").fadeOut("fast");
 }
 
+var sanitizeAltExerpt = function(exerpt) {
+        return exerpt.replace("{{", "").replace("}}", "").replace("alt: ", "").replace("rollover text: ", "").replace("Title text: ", "").replace("title text: ", "").replace("title-text: ", "").replace("alt text: ", "").replace("alt-text: ", "");
+}
+
 var extractExerpt = function(transcript) {
     var lines = transcript.split("\n");
     var selID = Math.floor(Math.random() * lines.length);
@@ -40,7 +44,7 @@ var extractExerpt = function(transcript) {
     else if (selectedLine[0] == "{") {
         type = "alt";
         // WHAT THE FUCK AM I THINKING?
-        selectedLine = selectedLine.replace("{{", "").replace("}}", "").replace("alt: ", "").replace("rollover text: ", "").replace("Title text: ", "").replace("title text: ", "").replace("title-text: ", "").replace("alt text: ", "").replace("alt-text: ", "");
+        selectedLine = sanitizeAltExerpt(selectedLine);
     }
     if (selectedLine.length > 15) {
         return {"text": selectedLine,
