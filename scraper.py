@@ -10,9 +10,9 @@ def parse_page(id):
     page = html.parse(urlopen(page_url)).getroot()
 
     title = page.cssselect("#ctitle")[0].text
-    image_url = page.cssselect("div#comic > img")[0].attrib['src']
+    image_url = page.cssselect("div#comic img")[0].attrib['src']
     
-    alt = page.cssselect("div#comic > img")[0].attrib['title']
+    alt = page.cssselect("div#comic img")[0].attrib['title']
     transcript = page.cssselect("#transcript")[0].text
 
     return (id, title, alt, transcript, image_url)
