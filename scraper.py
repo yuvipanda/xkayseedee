@@ -1,10 +1,7 @@
 from urllib2 import urlopen
 from lxml import html
 
-import cPickle
-
 import sys
-import os
 
 from database import ComicsDB
 
@@ -12,10 +9,10 @@ def parse_page(id):
     page_url = "http://xkcd.com/%s/" % id
     page = html.parse(urlopen(page_url)).getroot()
 
-    title = page.cssselect("h1")[0].text
-    image_url = page.cssselect("div.s > img")[0].attrib['src']
+    title = page.cssselect("#ctitle")[0].text
+    image_url = page.cssselect("div#comic > img")[0].attrib['src']
     
-    alt = page.cssselect("div.s img")[1].attrib['title']
+    alt = page.cssselect("div#comic > img")[0].attrib['title']
     transcript = page.cssselect("#transcript")[0].text
 
     return (id, title, alt, transcript, image_url)
